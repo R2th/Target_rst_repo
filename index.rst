@@ -20,25 +20,38 @@ Partition Manager Solution Demo
    :caption: System Requirements
 
    /src/requirements/PartitionManager/system_requirements.rst
-   
+   new_file.rst
+
+.. toctree::
    :maxdepth: 1
    :caption: Software Requirements
    :hidden:
+
    /src/requirements/PartitionManager/srs_PartitionManager.rst
+
+
+.. toctree::   
    :maxdepth: 1
    :hidden:
    :caption: Software Requirement Artefacts
+
    /src/requirements/PartitionManager/sw_req_artefacts.rst
    
+.. toctree::
    :maxdepth: 1
    :caption: Detailed Software Design
+
    /src/design/design.rst
+
+.. toctree::
    :maxdepth: 1
-   :caption: Test Cases
-   
+   :caption: Test Cases  
+    
    /src/tests/TestCases/TestCases_DemoSetup.rst
+
+.. toctree::
    :maxdepth: 1
-   :caption: Test Executions
-   
+   :caption: Test Executions  
+    
    /src/tests/TestExecution/Testrum.rst
-   new_file.rst
+
