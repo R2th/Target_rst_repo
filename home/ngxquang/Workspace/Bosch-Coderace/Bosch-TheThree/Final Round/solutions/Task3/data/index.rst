@@ -20,7 +20,7 @@ Partition Manager Solution Demo
    :caption: System Requirements
 
    /src/requirements/PartitionManager/system_requirements.rst
-   
+
 .. toctree::
    :maxdepth: 1
    :caption: Software Requirements
