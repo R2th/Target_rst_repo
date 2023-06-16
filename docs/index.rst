@@ -28,6 +28,7 @@ Partition Manager Solution Demo
    /src/abcdefghik.rst
    /src/abcdefghiklmn.rst
    /src/123requirements.rst
+   /src/requirements.rst
 
 .. toctree::
    :maxdepth: 1
