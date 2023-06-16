@@ -11,7 +11,7 @@ Partition Manager Solution Demo
    :maxdepth: 1
    :hidden:
    :caption: Stakeholder Requirements
-   
+
    /src/requirements/PartitionManager/stakeholder_requirements.rst
 
 .. toctree::
@@ -50,11 +50,11 @@ Partition Manager Solution Demo
 .. toctree::
    :maxdepth: 1
    :caption: Test Cases  
-    
+
    /src/tests/TestCases/TestCases_DemoSetup.rst
 
 .. toctree::
    :maxdepth: 1
    :caption: Test Executions  
-    
+ 
    /src/tests/TestExecution/Testrum.rst
