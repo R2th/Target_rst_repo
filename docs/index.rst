@@ -23,6 +23,7 @@ Partition Manager Solution Demo
    new_file.rst
    docs/src/abcdef.rst
    docs/src/abcdef.rst
+   docs/src/123Requirements.rst
 
 .. toctree::
    :maxdepth: 1
