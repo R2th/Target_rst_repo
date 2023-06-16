@@ -21,6 +21,7 @@ Partition Manager Solution Demo
 
    /src/requirements/PartitionManager/system_requirements.rst
    new_file.rst
+   docs/src/abcdef.rst
 
 .. toctree::
    :maxdepth: 1
