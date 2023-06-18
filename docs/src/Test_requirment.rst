@@ -48,6 +48,7 @@ ECU 1st Requirement
    :artifact_type: 
    :crq: crq
    :createdOn: 2019-10-08T06:18:45.662Z
+   :safety_level: Safety Classification
 
    | <description of the requirement in requirements language>
 
@@ -77,9 +78,6 @@ ECU 1st Requirement
      Test Bench/Lab-car with hardware setup
 
      Success Criteria: Verify whether the signal value is correct or not
-   .. safety_level:: safety_level629015
-
-     ASIL A
 
 System Non Fonctional Requirements
 **********************************
@@ -89,6 +87,7 @@ System Non Fonctional Requirements
    :artifact_type: 
    :crq: crq
    :createdOn: 2019-10-08T06:18:45.677Z
+   :safety_level: Safety Classification
 
    | <description of the non functional requirement in requirements
      language>
@@ -99,7 +98,4 @@ System Non Fonctional Requirements
      Test Bench/Lab-car with hardware setup
 
      Success Criteria: Verify whether the signal value is correct or not
-   .. safety_level:: safety_level629014
-
-     ASIL B
 
