@@ -71,6 +71,15 @@ ECU 1st Requirement
 
    | 
 
+   .. verify:: verify629015
+
+     Test Environment:
+     Test Bench/Lab-car with hardware setup
+
+     Success Criteria: Verify whether the signal value is correct or not
+   .. safety_level:: safety_level629015
+
+     ASIL A
 
 System Non Fonctional Requirements
 **********************************
@@ -84,4 +93,13 @@ System Non Fonctional Requirements
    | <description of the non functional requirement in requirements
      language>
 
+   .. verify:: verify629014
+
+     Non Func Test Environment:
+     Test Bench/Lab-car with hardware setup
+
+     Success Criteria: Verify whether the signal value is correct or not
+   .. safety_level:: safety_level629014
+
+     ASIL B
 
