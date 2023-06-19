@@ -13,6 +13,4 @@ The Three
 Indices and tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   /src/ECU_Requirement.rst
