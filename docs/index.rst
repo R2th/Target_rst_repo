@@ -9,10 +9,7 @@ The Three
 .. toctree::
    :maxdepth: 2
    :caption: System Requirements
-
-   /src/Test_requirment.rst
-   /src/ECU_Requirement.rst
-
+   
 Indices and tables
 ==================
 
