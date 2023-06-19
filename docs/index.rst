@@ -9,8 +9,12 @@ The Three
 .. toctree::
    :maxdepth: 2
    :caption: System Requirements
-   
+
+   /src/ECU_Requirement.rst
+
 Indices and tables
 ==================
 
-   /src/ECU_Requirement.rst
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
