@@ -72,7 +72,7 @@ ECU 1st Requirement
 
    | 
 
-   .. verify:: verify629015
+   .. verify:: verify
 
      Test Environment:
      Test Bench/Lab-car with hardware setup
@@ -92,7 +92,7 @@ System Non Fonctional Requirements
    | <description of the non functional requirement in requirements
      language>
 
-   .. verify:: verify629014
+   .. verify:: verify
 
      Non Func Test Environment:
      Test Bench/Lab-car with hardware setup
