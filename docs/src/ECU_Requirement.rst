@@ -49,6 +49,7 @@ ECU 1st Requirement
    :crq: crq
    :createdOn: 2019-10-08T06:18:45.662Z
    :safety_level: Safety Classification
+   :status: Status
 
    | <description of the requirement in requirements language>
 
@@ -88,6 +89,7 @@ System Non Fonctional Requirements
    :crq: crq
    :createdOn: 2019-10-08T06:18:45.677Z
    :safety_level: Safety Classification
+   :status: Status
 
    | <description of the non functional requirement in requirements
      language>
