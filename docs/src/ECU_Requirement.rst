@@ -48,8 +48,8 @@ ECU 1st Requirement
    :artifact_type: 
    :crq: crq
    :createdOn: 2019-10-08T06:18:45.662Z
-   :safety_level: Safety Classification
-   :status: Status
+   :safety_level: ASIL A
+   :status: New/Changed
 
    | <description of the requirement in requirements language>
 
@@ -88,8 +88,8 @@ System Non Fonctional Requirements
    :artifact_type: 
    :crq: crq
    :createdOn: 2019-10-08T06:18:45.677Z
-   :safety_level: Safety Classification
-   :status: Status
+   :safety_level: ASIL B
+   :status: New/Changed
 
    | <description of the non functional requirement in requirements
      language>
