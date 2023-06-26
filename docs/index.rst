@@ -11,6 +11,7 @@ The Three
    :caption: System Requirements
 
    /src/ECU_Requirement.rst
+   /requirements/ECU_Requirement.reqif
 
 Indices and tables
 ==================
