@@ -1,11 +1,23 @@
-bmFtZTogTm90aWZ5IExvY2FsIEFQSQoKb246CiAgcHVzaDoKICAgIGJyYW5j
-aGVzOgogICAgICAtIG1haW4KCmpvYnM6CiAgbm90aWZ5OgogICAgcnVucy1v
-bjogdWJ1bnR1LWxhdGVzdAogICAgCiAgICBzdGVwczoKICAgIC0gbmFtZTog
-Q2hlY2tvdXQgY29kZQogICAgICB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHYz
-CgogICAgLSBuYW1lOiBOb3RpZnkgTG9jYWwgQVBJCiAgICAgIGVudjoKICAg
-ICAgICBBUElfRU5EUE9JTlQ6IGh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCAgIyBS
-ZXBsYWNlIHdpdGggdGhlIFVSTCBvZiB5b3VyIGxvY2FsIEFQSQogICAgICBy
-dW46IHwKICAgICAgICBjdXJsIC1YIFBPU1QgXAogICAgICAgICAgLUggIkNv
-bnRlbnQtVHlwZTogYXBwbGljYXRpb24vanNvbiIgXAogICAgICAgICAgLWQg
-J3siYnJhbmNoIjogIm1haW4iLCAibWVzc2FnZSI6ICJGaWxlcyBoYXZlIGJl
-ZW4gY2hhbmdlZC4ifScgXAogICAgICAgICAgJEFQSV9FTkRQT0lOVAo=
+name: Notify Local API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Notify Local API
+      env:
+        API_ENDPOINT: http://localhost:3000  # Replace with the URL of your local API
+      run: |
+        curl -X POST \
+          -H "Content-Type: application/json" \
+          -d '{"branch": "main", "message": "Files have been changed."}' \
+          $API_ENDPOINT
