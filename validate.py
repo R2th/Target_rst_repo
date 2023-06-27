@@ -100,6 +100,7 @@ class Validator:
 
 
 if __name__ == "__main__":
+    print(os.listdir("."))
     attribute_names = ["status", "crq", "verify", "safety_level"]
 
     reqs_dir = init_arguments()
