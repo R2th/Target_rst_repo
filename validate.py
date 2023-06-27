@@ -1,6 +1,7 @@
 import re
 import argparse
 import os
+import warnings
 
 
 def init_arguments():
@@ -100,16 +101,19 @@ class Validator:
 
 
 if __name__ == "__main__":
-    print(os.listdir("."))
     attribute_names = ["status", "crq", "verify", "safety_level"]
 
     reqs_dir = init_arguments()
 
+    consistency = True
     message = ""
     validator = Validator(attribute_names)
     for f in os.listdir(reqs_dir):
         file_path = os.path.join(reqs_dir, f)
-        validator.process(file_path)
+        consistency = consistency and validator.process(file_path)
         message += validator.export_message()
+
+    if not consistency:
+        warnings.warn("Warning: INCONSISTENCY FOUND")
 
     print(message)
