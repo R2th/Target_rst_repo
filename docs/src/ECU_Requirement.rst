@@ -11,7 +11,7 @@ Document Scope
 
 .. sw_req:: <put below a first description of the scope for software requirement specification>
    :id: 629016
-   :artifact_type: None
+   :artifact_type: Information
 
    | <put below a first description of the scope for ECU requirement
      specification>
@@ -22,7 +22,7 @@ Document Specific Glossary
 
 .. sw_req:: <put below a definition of first glossary specific terms>
    :id: 629013
-   :artifact_type: None
+   :artifact_type: Information
 
    | <put below a definition of first glossary specific terms>
 
@@ -32,7 +32,7 @@ System Requirement
 
 .. sw_req:: <infos relevant for the complete chapter>
    :id: 629017
-   :artifact_type: None
+   :artifact_type: Information
 
    | <infos relevant for the complete chapter>
    | Note to the template:
@@ -45,11 +45,11 @@ ECU 1st Requirement
 
 .. sw_req:: <description of the requirement in requirements language>
    :id: 629015
-   :artifact_type: 
+   :artifact_type: MO_FUNC_REQ
    :crq: None
    :createdOn: 2019-10-08T06:18:45.662Z
    :safety_level: ASIL A
-   :status: New/Changed
+   :status: NEW/CHANGED
 
    | <description of the requirement in requirements language>
 
@@ -85,11 +85,11 @@ System Non Fonctional Requirements
 
 .. sw_req:: <description of the non functional requirement in requirements language>
    :id: 629014
-   :artifact_type: 
-   :crq: None
+   :artifact_type: MO_NON_FUNC_REQ
+   :crq: RQONE03587423
    :createdOn: 2019-10-08T06:18:45.677Z
    :safety_level: ASIL B
-   :status: New/Changed
+   :status: NEW/CHANGED
 
    | <description of the non functional requirement in requirements
      language>
