@@ -1,7 +1,7 @@
 import re
 import argparse
 import os
-import warnings
+import sys
 
 
 def init_arguments():
@@ -105,11 +105,15 @@ if __name__ == "__main__":
 
     reqs_dir = init_arguments()
 
+    is_cons = True
     message = ""
     validator = Validator(attribute_names)
     for f in os.listdir(reqs_dir):
         file_path = os.path.join(reqs_dir, f)
-        validator.process(file_path)
+        if not validator.process(file_path):
+            is_cons = False
         message += validator.export_message()
 
-    print(message)
+    if not is_cons:
+        print(message)
+        sys.exit(1)
