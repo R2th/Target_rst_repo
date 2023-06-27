@@ -11,10 +11,8 @@ The Three
    :caption: System Requirements
 
    /src/ECU_Requirement.rst
-   /requirements/ECU_Requirement.reqif
-   /requirements/test/test/reqif.reqif
-   /requirements/a.reqif
-   /requirements/3.reqif
+   /src/Test_1.rst
+   /src/Test_2.rst
 
 Indices and tables
 ==================
