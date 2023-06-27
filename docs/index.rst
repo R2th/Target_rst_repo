@@ -14,6 +14,7 @@ The Three
    /requirements/ECU_Requirement.reqif
    /requirements/test/test/reqif.reqif
    /requirements/a.reqif
+   /requirements/3.reqif
 
 Indices and tables
 ==================
