@@ -105,15 +105,11 @@ if __name__ == "__main__":
 
     reqs_dir = init_arguments()
 
-    consistency = True
     message = ""
     validator = Validator(attribute_names)
     for f in os.listdir(reqs_dir):
         file_path = os.path.join(reqs_dir, f)
-        consistency = consistency and validator.process(file_path)
+        validator.process(file_path)
         message += validator.export_message()
-
-    if not consistency:
-        warnings.warn("Warning: INCONSISTENCY FOUND")
 
     print(message)
