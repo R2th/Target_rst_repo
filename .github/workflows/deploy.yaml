@@ -2,13 +2,12 @@ name: Deploy
 on: 
   workflow_run:
     workflows: ["Validate"]
-    branches: ["main"]
     types: 
-      - comleted
+      - completed
 permissions:
   contents: write
 jobs:
-  deploy:
+   on-success:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
