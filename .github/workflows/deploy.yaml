@@ -1,5 +1,9 @@
 name: Deploy
-on: [push, pull_request]
+on: 
+  workflow_run:
+    workflows: ["Validate"]
+    types:
+      - completed
 permissions:
   contents: write
 jobs:
