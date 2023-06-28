@@ -1,13 +1,12 @@
 name: Deploy
-on: 
-  workflow_run:
-    workflows: ["Validate"]
-    types: 
-      - completed
+on: [push, pull_request]
 permissions:
   contents: write
 jobs:
-   on-success:
+   validate:
+     uses: ./.github/workflows/validate.yaml
+   deploy:
+    needs: [validate]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
