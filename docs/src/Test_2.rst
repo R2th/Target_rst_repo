@@ -53,7 +53,6 @@ ECU 1st Requirement
    :safety_level: oke_bro
    :artifact_type: MO_FUNC_REQ
    :crq: RQONE03587423
-   :verify: heybro
 
    
    <description of the requirement in requirements language>
@@ -84,7 +83,7 @@ System Non Fonctional Requirements
 **********************************
 
 .. sw_req:: woiwnoiwnfe
-   :status: NEW/CHANGED
+   :status: Accepted
    :id: 222226
    :safety_level: ASIL B
    :artifact_type: MO_NON_FUNC_REQ
