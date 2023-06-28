@@ -1,0 +1,16 @@
+name: Validate
+on: [pull_request, workflow_dispatch]
+permissions:
+  contents: write
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Install dependencies
+        run: |
+          pip install actions-toolkit
+      - name: Run consistency check
+        run: |
+          python validate.py -i docs/src/
