@@ -13,6 +13,7 @@ The Three
    /src/ECU_Requirement.rst
    /src/Test_1.rst
    /src/Test_2.rst
+   /requirements/5.reqif
 
 Indices and tables
 ==================
