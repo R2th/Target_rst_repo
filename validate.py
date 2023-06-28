@@ -117,4 +117,4 @@ if __name__ == "__main__":
         message += validator.export_message()
 
     if not is_cons:
-        core.error(message)
+        core.set_failed('\n'+message)
