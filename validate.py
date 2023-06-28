@@ -3,6 +3,7 @@ import argparse
 import os
 import sys
 import warnings
+from actions_toolkit import core
 
 
 def init_arguments():
@@ -116,6 +117,4 @@ if __name__ == "__main__":
         message += validator.export_message()
 
     if not is_cons:
-        warnings.warn("INCONSISTENCY FOUND.")
-        print(message)
-        sys.exit(1)
+        core.error(message)
