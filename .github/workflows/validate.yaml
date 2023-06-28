@@ -9,6 +9,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install actions-toolkit
+          pip install -r requirments.txt
+      - name: Build XML
+        run: |
+          sphinx-build docs _xml_build -b xml      
       - name: Run consistency check
         run: |
-          python validate.py -i docs/src/
+          python validate.py -i src -xml xml
