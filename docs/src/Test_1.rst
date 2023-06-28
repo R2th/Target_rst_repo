@@ -94,6 +94,7 @@ System Non Fonctional Requirements
    :safety_level: ASIL B
    :artifact_type: MO_NON_FUNC_REQ
    :crq: RQONE03587423
+   :allocation: what_the_fuck
 
    
    <description of the non functional requirement in requirements
