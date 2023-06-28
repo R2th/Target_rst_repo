@@ -9,7 +9,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install actions-toolkit
-          pip install -r requirments.txt
+          pip install -r requirements.txt
       - name: Build XML
         run: |
           sphinx-build docs _xml_build -b xml      
