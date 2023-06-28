@@ -1,9 +1,103 @@
-import re
+import xmltodict
 import argparse
-import os
-import sys
-import warnings
 from actions_toolkit import core
+import os
+
+
+def find_keys(node, kv):
+    if isinstance(node, list):
+        for i in node:
+            for x in find_keys(i, kv):
+                yield x
+    elif isinstance(node, dict):
+        if kv in node:
+            yield node[kv]
+        for j in node.values():
+            for x in find_keys(j, kv):
+                yield x
+
+
+def find_key_value(node, key, value):
+    if isinstance(node, list):
+        for i in node:
+            for x in find_key_value(i, key, value):
+                yield x
+    elif isinstance(node, dict):
+        if key in node and value in node[key]:
+            yield node
+        for j in node.values():
+            for x in find_key_value(j, key, value):
+                yield x
+
+
+def find_dummy(node, key, value):
+    if isinstance(node, list):
+        for i in node:
+            for x in find_dummy(i, key, value):
+                yield x
+    elif isinstance(node, dict):
+        if key in node:
+            if isinstance(node.get(key, {}), dict) and value == node.get(key, {}).get('@classes', None):
+                yield node[key]['inline']
+        for j in node.values():
+            for x in find_dummy(j, key, value):
+                yield x
+
+
+def find_need_data(node, attribute):
+    target = list(find_dummy(node, 'inline', 'needs_' + attribute))
+    if len(target) > 0:
+        return list(find_key_value(target[0], '@classes', 'needs_data'))[0]['#text']
+
+
+def format_message_error(path, errors):
+    message = path
+    for id, type, attributes in errors:
+        message += f'\n\t{id} - {type}'
+        for attribute in attributes:
+            message += f'\n\t\tERROR:field \'{attribute}\' must be filled'
+    return message
+
+
+def validate(target_file):
+    errors = []
+    source = xmltodict.parse(open(target_file).read())
+
+    metadata = list(find_key_value(source, '@classes', 'needs_meta'))
+
+    for i in metadata:
+        artifact_type = find_need_data(i, 'artifact_type')
+        if artifact_type is None or artifact_type in ['Information', 'Heading']:
+            continue
+        else:
+            attribute_errors = []
+            req_id = list(find_keys(i, '@reftitle'))[0]
+            check = list(find_key_value(source, '@ids', req_id))
+            if len(check) > 0:
+                req_type = check[1]['@classes'].split('needs_type_')[1]
+            for attribute in ['status', 'safety_level', 'verify', 'crq']:
+                data = find_need_data(i, attribute)
+
+                if data is None:
+                    directive_by_id = list(
+                        find_key_value(source, '@ids', req_id))[1]
+                    sub_directive = list(find_key_value(
+                        directive_by_id, '@classes', 'needs_type_verify'))
+                    data = list(find_key_value(sub_directive,
+                                               '@classes', 'need content'))[1].get('paragraph')
+
+                    if data is None:
+                        attribute_errors.append(attribute)
+
+                if attribute == 'status' and data == 'Accepted':
+                    allocation = find_need_data(i, 'allocation')
+                    if allocation is None:
+                        attribute_errors.append('allocation')
+            if len(attribute_errors) > 0:
+                errors.append((req_type, req_id, attribute_errors))
+
+    if len(errors) > 0:
+        return format_message_error(target_file, errors)
 
 
 def init_arguments():
@@ -18,103 +112,26 @@ def init_arguments():
         help="Path to the folder containing all the rst files",
     )
 
+    parser.add_argument(
+        '-xml',
+        '--xml_output',
+        help='Path to output after run sphinx builder xml'
+    )
+
     args = parser.parse_args()
-    return args.inputs
+    return args.inputs, args.xml_output
 
 
-class Validator:
-    def __init__(self, attr_names):
-        self.attr_names = attr_names
-        self.file_path = None
-        self.reqs = None
-        self.incorrects = None
+if __name__ == '__main__':
+    reqs_dir, xml_folder_dir = init_arguments()
 
-    def get_requirements(self):
-        self.reqs = []
-        is_req_content = False
-        with open(self.file_path, "r") as f:
-            for line in f.readlines():
-                if line.startswith(".. sw_req::"):
-                    self.reqs.append({"type": "Software Requirement", "content": ""})
-                    is_req_content = True
-                elif line.startswith(".. sys_req::"):
-                    self.reqs.append({"type": "System Requirement", "content": ""})
-                    is_req_content = True
-                elif line.startswith("   "):
-                    if is_req_content:
-                        self.reqs[-1]["content"] += line
-                elif line == "\n":
-                    continue
-                else:
-                    is_req_content = False
-        return self.reqs
+    xmls_dir = os.path.join(xml_folder_dir, reqs_dir)
 
-    def check_exist_empty(self, req, attr_name):
-        if re.search(r":{}: (\S+)".format(attr_name), req):
-            value = re.search(r":{}: (\S+)".format(attr_name), req).group(1)
-            return True, value
-        elif re.search(r".. {}::\s*(\S+)".format(attr_name), req):
-            value = re.search(r".. {}::\s*(\S+)".format(attr_name), req).group(1)
-            return True, value
-        else:
-            return False, None
+    messages = ''
 
-    def process(self, file_path):
-        self.file_path = file_path
-        self.get_requirements()
+    for f in os.listdir(xmls_dir):
+        file_path = os.path.join(xmls_dir, f)
+        messages += validate(file_path)
 
-        self.incorrects = []
-        for req in self.reqs:
-            req_str = req["content"]
-            _, id = self.check_exist_empty(req_str, "id")
-
-            _, artifact_type = self.check_exist_empty(req_str, "artifact_type")
-            if artifact_type == "Information":
-                continue
-
-            errors = []
-            check_allocation = False
-            for name in self.attr_names:
-                is_filled, value = self.check_exist_empty(req_str, name)
-                if is_filled == False:
-                    errors.append(name)
-                if name == "status" and value == "Accepted":
-                    check_allocation = True
-            if check_allocation:
-                is_filled, value = self.check_exist_empty(req_str, "allocation")
-                if not is_filled:
-                    errors.append("allocation")
-            if len(errors):
-                self.incorrects.append(
-                    {"id": id, "type": req["type"], "errors": errors}
-                )
-
-        return len(self.incorrects) == 0
-
-    def export_message(self):
-        if (self.incorrects is None) or len(self.incorrects) == 0:
-            return ""
-        message = self.file_path + "\n"
-        for incorrect in self.incorrects:
-            message += "\t{} - {}\n".format(str(incorrect["id"]), incorrect["type"])
-            for attr_name in incorrect["errors"]:
-                message += f"\t\tERROR: field '{attr_name}' must be filled\n"
-        return message
-
-
-if __name__ == "__main__":
-    attribute_names = ["status", "crq", "verify", "safety_level"]
-
-    reqs_dir = init_arguments()
-
-    is_cons = True
-    message = ""
-    validator = Validator(attribute_names)
-    for f in os.listdir(reqs_dir):
-        file_path = os.path.join(reqs_dir, f)
-        if not validator.process(file_path):
-            is_cons = False
-        message += validator.export_message()
-
-    if not is_cons:
-        core.set_failed('\n'+message)
+    if messages != '':
+        core.set_failed(messages)
