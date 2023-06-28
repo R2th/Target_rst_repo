@@ -50,9 +50,10 @@ ECU 1st Requirement
 .. sys_req:: powmvpowmevpom
    :status: NEW/CHANGED
    :id: 222225
-   :safety_level:
+   :safety_level: oke_bro
    :artifact_type: MO_FUNC_REQ
    :crq: RQONE03587423
+   :verify: heybro
 
    
    <description of the requirement in requirements language>
