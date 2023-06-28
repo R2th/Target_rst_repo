@@ -98,6 +98,8 @@ def validate(target_file):
 
     if len(errors) > 0:
         return format_message_error(target_file, errors)
+    else:
+        return ''
 
 
 def init_arguments():
@@ -130,7 +132,7 @@ if __name__ == '__main__':
     messages = ''
 
     for f in os.listdir(xmls_dir):
-        file_path = os.path.join(xmls_dir, f)
+        file_path = os.path.join('docs', reqs_dir, f)
         messages += validate(file_path)
 
     if messages != '':
