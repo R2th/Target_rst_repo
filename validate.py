@@ -132,7 +132,7 @@ if __name__ == '__main__':
     messages = ''
 
     for f in os.listdir(xmls_dir):
-        file_path = os.path.join('docs', reqs_dir, f)
+        file_path = os.path.join(xmls_dir, f)
         messages += validate(file_path)
 
     if messages != '':
