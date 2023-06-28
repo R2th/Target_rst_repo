@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-python@v3
       - name: Install dependencies
         run: |
-          pip install sphinx sphinx_rtd_theme sphinxcontrib-plantuml sphinx_needs
+          pip install -r requirements.txt
       - name: Run consistency check
         run: |
           python validate.py -i docs/src/
