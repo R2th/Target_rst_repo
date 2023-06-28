@@ -15,4 +15,4 @@ jobs:
           sphinx-build docs _xml_build -b xml      
       - name: Run consistency check
         run: |
-          python validate.py -i src -xml xml
+          python validate.py -i src -xml _xml_build
