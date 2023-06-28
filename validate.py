@@ -59,45 +59,48 @@ def format_message_error(path, errors):
     return message
 
 
-def validate(target_file):
+def validate(target_file, reqs_dir, xmls_dir):
     errors = []
-    source = xmltodict.parse(open(target_file).read())
+    source = xmltodict.parse(open(os.path.join(xmls_dir, target_file)).read())
 
-    metadata = list(find_key_value(source, '@classes', 'needs_meta'))
+    sections = list(find_keys(list(find_keys(source, 'document'))[
+                    0]['section'], 'section'))[0]
 
-    for i in metadata:
-        artifact_type = find_need_data(i, 'artifact_type')
+    for section in sections:
+        metadata = list(find_key_value(section, '@classes', 'needs_meta'))
+        artifact_type = find_need_data(metadata, 'artifact_type')
         if artifact_type is None or artifact_type in ['Information', 'Heading']:
             continue
         else:
             attribute_errors = []
-            req_id = list(find_keys(i, '@reftitle'))[0]
-            check = list(find_key_value(source, '@ids', req_id))
+            req_id = list(find_keys(section, 'target'))[0]['@ids']
+            check = list(find_key_value(section, '@classes',
+                                        'needs_type_'))
             if len(check) > 0:
-                req_type = check[1]['@classes'].split('needs_type_')[1]
+                req_type = check[0]['@classes'].split('needs_type_')[1]
             for attribute in ['status', 'safety_level', 'verify', 'crq']:
-                data = find_need_data(i, attribute)
-
+                data = find_need_data(metadata, attribute)
                 if data is None:
                     directive_by_id = list(
-                        find_key_value(source, '@ids', req_id))[1]
+                        find_key_value(section, '@ids', req_id))[1]
                     sub_directive = list(find_key_value(
-                        directive_by_id, '@classes', 'needs_type_verify'))
-                    data = list(find_key_value(sub_directive,
-                                               '@classes', 'need content'))[1].get('paragraph')
+                        directive_by_id, '@classes', 'needs_type_' + attribute))
+                    if len(sub_directive) > 0:
+                        data = list(find_key_value(sub_directive,
+                                                   '@classes', 'need content'))[1].get('paragraph')
 
                     if data is None:
                         attribute_errors.append(attribute)
 
                 if attribute == 'status' and data == 'Accepted':
-                    allocation = find_need_data(i, 'allocation')
+                    allocation = find_need_data(metadata, 'allocation')
                     if allocation is None:
                         attribute_errors.append('allocation')
             if len(attribute_errors) > 0:
                 errors.append((req_type, req_id, attribute_errors))
 
     if len(errors) > 0:
-        return format_message_error(target_file, errors)
+        return format_message_error(os.path.join(reqs_dir, target_file), errors) + '\n'
     else:
         return ''
 
@@ -127,13 +130,12 @@ def init_arguments():
 if __name__ == '__main__':
     reqs_dir, xml_folder_dir = init_arguments()
 
-    xmls_dir = os.path.join(xml_folder_dir, reqs_dir)
+    xmls_dir = os.path.join(xml_folder_dir, os.path.split(reqs_dir)[1])
 
     messages = ''
 
     for f in os.listdir(xmls_dir):
-        file_path = os.path.join(xmls_dir, f)
-        messages += validate(file_path)
+        messages += validate(f, reqs_dir, xmls_dir)
 
     if messages != '':
         core.set_failed(messages)
