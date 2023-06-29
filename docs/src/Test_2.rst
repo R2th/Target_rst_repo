@@ -53,13 +53,12 @@ ECU 1st Requirement
    :safety_level: oke_bro
    :artifact_type: MO_FUNC_REQ
    :crq: RQONE03587423
-   :verify: heybro
 
    
    <description of the requirement in requirements language>
 
    | **VEHICLE_SYSTEM_BEHAVIOUR**
-   | <Optional: description of desired vehicle behaviour ("development
+   | <Optional: description of desired vehicle behavior ("development
      target")>    
    | **CONSTRAINT  **  
    | <Optional: constraints on the solution space for the requirement>
@@ -84,7 +83,7 @@ System Non Fonctional Requirements
 **********************************
 
 .. sw_req:: woiwnoiwnfe
-   :status: NEW/CHANGED
+   :status: Accepted
    :id: 222226
    :safety_level: ASIL B
    :artifact_type: MO_NON_FUNC_REQ
@@ -96,8 +95,3 @@ System Non Fonctional Requirements
 
 
    .. verify:: verify222226
-
-      Non Func Test Environment:
-      Test Bench/Lab-car with hardware setup
-      
-      Success Criteria: Verify whether the signal value is correct or not
