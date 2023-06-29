@@ -1,6 +1,6 @@
 
 ======================
-ECU_Requirement_Test_2
+ECU_Requirement_Test_1
 ======================
 
 General Overview / Document Scope
@@ -48,11 +48,12 @@ ECU 1st Requirement
 *******************
 
 .. sys_req:: powmvpowmevpom
-   :status: NEW/CHANGED
+   :status: Accepted
    :id: 222225
-   :safety_level: oke_bro
+   :safety_level: haha
    :artifact_type: MO_FUNC_REQ
-   :crq: RQONE03587423
+   :crq: RQONE03587423Job
+   :allocation: notempty
 
    
    <description of the requirement in requirements language>
@@ -91,7 +92,7 @@ System Non Fonctional Requirements
    :id: 222226
    :safety_level: ASIL B
    :artifact_type: MO_NON_FUNC_REQ
-   :crq: RQONE03587423
+   :crq: nonempty
    :allocation: ádasdas
 
    
@@ -100,5 +101,7 @@ System Non Fonctional Requirements
 
 
    .. verify:: verify222226
+     Non Func Test Environment:
+     Test Bench/Lab-car with hardware setup
 
-   acbacsacscas
+     Success Criteria: Verify whether the signal value is correct or not

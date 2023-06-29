@@ -1,7 +1,7 @@
 
-===============
-ECU_Requirement
-===============
+================
+ECU_Requirements
+================
 
 General Overview / Document Scope
 *********************************
@@ -46,10 +46,10 @@ ECU 1st Requirement
 .. sw_req:: <description of the requirement in requirements language>
    :id: 629015
    :artifact_type: MO_FUNC_REQ
-   :crq: None
+   :crq: RQONE03587423
    :createdOn: 2019-10-08T06:18:45.662Z
    :safety_level: ASIL A
-   :status: NEW/CHANGED
+   :status: New/Changed
 
    | <description of the requirement in requirements language>
 
@@ -85,11 +85,11 @@ System Non Fonctional Requirements
 
 .. sw_req:: <description of the non functional requirement in requirements language>
    :id: 629014
-   :artifact_type: MO_NON_FUNC_REQ
-   :crq: not_empty
+   :artifact_type: Unknown
+   :crq: RQONE03587423
    :createdOn: 2019-10-08T06:18:45.677Z
-   :safety_level: not_empty
-   :status: NEW/CHANGED
+   :safety_level: ASIL B
+   :status: New/Changed
 
    | <description of the non functional requirement in requirements
      language>
