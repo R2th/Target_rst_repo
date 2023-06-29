@@ -48,9 +48,9 @@ ECU 1st Requirement
 *******************
 
 .. sys_req:: powmvpowmevpom
-   :status: NEW/CHANGED
+   :status: Accepted
    :id: 222225
-   :safety_level: oke_bro
+   :safety_level: 
    :artifact_type: MO_FUNC_REQ
    :crq: RQONE03587423
 
@@ -91,7 +91,7 @@ System Non Fonctional Requirements
    :id: 222226
    :safety_level: ASIL B
    :artifact_type: MO_NON_FUNC_REQ
-   :crq: RQONE03587423
+   :crq: 
    :allocation: ádasdas
 
    
@@ -100,5 +100,3 @@ System Non Fonctional Requirements
 
 
    .. verify:: verify222226
-
-   acbacsacscas

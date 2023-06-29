@@ -1,50 +1,45 @@
-import xmltodict
 import argparse
-from actions_toolkit import core
 import os
-import sys
 import re
+import sys
+
+import xmltodict
+from actions_toolkit import core
 
 
 def find_keys(node, kv):
     if isinstance(node, list):
         for i in node:
-            for x in find_keys(i, kv):
-                yield x
+            yield from find_keys(i, kv)
     elif isinstance(node, dict):
         if kv in node:
             yield node[kv]
         for j in node.values():
-            for x in find_keys(j, kv):
-                yield x
+            yield from find_keys(j, kv)
 
 
 def find_key_value(node, key, value):
     if isinstance(node, list):
         for i in node:
-            for x in find_key_value(i, key, value):
-                yield x
+            yield from find_key_value(i, key, value)
     elif isinstance(node, dict):
         if key in node and value in node[key]:
             yield node
         for j in node.values():
-            for x in find_key_value(j, key, value):
-                yield x
+            yield from find_key_value(j, key, value)
 
 
 def find_dummy(node, key, value):
     if isinstance(node, list):
         for i in node:
-            for x in find_dummy(i, key, value):
-                yield x
+            yield from find_dummy(i, key, value)
     elif isinstance(node, dict):
         if key in node:
             if isinstance(node.get(key, {}), dict):
-                if node.get(key, {}).get('@classes', None) == value:
+                if node.get(key, {}).get('@classes') == value:
                     yield node[key]['inline']
         for j in node.values():
-            for x in find_dummy(j, key, value):
-                yield x
+            yield from find_dummy(j, key, value)
 
 
 def find_attribute_value(section, req_id, attribute):
@@ -92,7 +87,7 @@ def find_content_sub_directive(section, req_id, attribute):
         return content[0] if len(content) > 0 else None
 
 
-def validate(target_file, reqs_dir, xmls_dir, errors):
+def validate(target_file, requirements_dir, xmls_dir, errors):
     file_errors = []
     source = xmltodict.parse(open(os.path.join(xmls_dir, target_file)).read())
 
@@ -128,7 +123,7 @@ def validate(target_file, reqs_dir, xmls_dir, errors):
                 file_errors.append((req_type, req_id, attribute_errors))
 
     if len(file_errors) > 0:
-        errors.append((os.path.join(reqs_dir, target_file.replace('.xml', '.rst')),
+        errors.append((os.path.join(requirements_dir, target_file.replace('.xml', '.rst')),
                       file_errors))
 
 
@@ -155,14 +150,14 @@ def init_arguments():
 
 
 if __name__ == '__main__':
-    reqs_dir, xml_folder_dir = init_arguments()
+    requirements_dir, xml_folder_dir = init_arguments()
 
-    xmls_dir = os.path.join(xml_folder_dir, os.path.split(reqs_dir)[1])
+    xmls_dir = os.path.join(xml_folder_dir, os.path.split(requirements_dir)[1])
 
     errors = []
 
     for f in os.listdir(xmls_dir):
-        validate(f, reqs_dir, xmls_dir, errors)
+        validate(f, requirements_dir, xmls_dir, errors)
 
     if len(errors) > 0:
         for path, error in errors:
