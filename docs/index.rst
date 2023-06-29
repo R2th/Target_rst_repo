@@ -17,6 +17,7 @@ The Three
    /src/requirements/6.reqif
    /src/requirements/abc.rst
    /src/16.rst
+   /src/19.rst
 
 Indices and tables
 ==================
