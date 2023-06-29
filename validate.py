@@ -2,6 +2,7 @@ import xmltodict
 import argparse
 from actions_toolkit import core
 import os
+import sys
 
 
 def find_keys(node, kv):
@@ -59,8 +60,8 @@ def format_message_error(path, errors):
     return message
 
 
-def validate(target_file, reqs_dir, xmls_dir):
-    errors = []
+def validate(target_file, reqs_dir, xmls_dir, errors):
+    file_errors = []
     source = xmltodict.parse(open(os.path.join(xmls_dir, target_file)).read())
 
     sections = list(find_keys(list(find_keys(source, 'document'))[
@@ -97,12 +98,11 @@ def validate(target_file, reqs_dir, xmls_dir):
                     if allocation is None:
                         attribute_errors.append('allocation')
             if len(attribute_errors) > 0:
-                errors.append((req_type, req_id, attribute_errors))
+                file_errors.append((req_type, req_id, attribute_errors))
 
-    if len(errors) > 0:
-        return format_message_error(os.path.join(reqs_dir, target_file), errors) + '\n'
-    else:
-        return ''
+    if len(file_errors) > 0:
+        errors.append((os.path.join(reqs_dir, target_file.replace('.xml', '.rst')),
+                      file_errors))
 
 
 def init_arguments():
@@ -132,10 +132,12 @@ if __name__ == '__main__':
 
     xmls_dir = os.path.join(xml_folder_dir, os.path.split(reqs_dir)[1])
 
-    messages = ''
+    errors = []
 
     for f in os.listdir(xmls_dir):
-        messages += validate(f, reqs_dir, xmls_dir)
+        validate(f, reqs_dir, xmls_dir, errors)
 
-    if messages != '':
-        core.set_failed(messages)
+    if len(errors) > 0:
+        for path, error in errors:
+            core.error(format_message_error(path, error))
+        sys.exit(1)
