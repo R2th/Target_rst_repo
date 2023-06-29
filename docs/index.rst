@@ -14,6 +14,7 @@ The Three
    /src/Test_2.rst
    19.rst
    20.rst
+   34.rst
 
 Indices and tables
 ==================
