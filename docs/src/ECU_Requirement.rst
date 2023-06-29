@@ -86,9 +86,9 @@ System Non Fonctional Requirements
 .. sw_req:: <description of the non functional requirement in requirements language>
    :id: 629014
    :artifact_type: MO_NON_FUNC_REQ
-   :crq:
+   :crq: not_empty
    :createdOn: 2019-10-08T06:18:45.677Z
-   :safety_level:
+   :safety_level: not_empty
    :status: NEW/CHANGED
 
    | <description of the non functional requirement in requirements
