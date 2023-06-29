@@ -138,4 +138,4 @@ if __name__ == '__main__':
 
     if len(errors) > 0:
         for path, error in errors:
-            core.error(format_message_error(path, error))
+            core.set_failed(format_message_error(path, error))
