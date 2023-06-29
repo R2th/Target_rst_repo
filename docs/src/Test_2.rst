@@ -52,7 +52,8 @@ ECU 1st Requirement
    :id: 222225
    :safety_level: haha
    :artifact_type: MO_FUNC_REQ
-   :crq: RQONE03587423
+   :crq: RQONE03587423Job
+   :allocation: notempty
 
    
    <description of the requirement in requirements language>
