@@ -2,6 +2,7 @@ import xmltodict
 import argparse
 from actions_toolkit import core
 import os
+import sys
 
 
 def find_keys(node, kv):
@@ -138,4 +139,5 @@ if __name__ == '__main__':
 
     if len(errors) > 0:
         for path, error in errors:
-            core.set_failed(format_message_error(path, error))
+            core.error(format_message_error(path, error))
+        sys.exit(1)
