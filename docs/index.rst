@@ -10,7 +10,6 @@ The Three
    :maxdepth: 2
    :caption: System Requirements
 
-   /src/ECU_Requirement.rst
    /src/Test_2.rst
 
 Indices and tables
