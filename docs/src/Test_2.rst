@@ -76,8 +76,10 @@ ECU 1st Requirement
    | <Optional: assumptions on the requirement>
 
    .. verify:: verify222225
+     Test Environment:
+     Test Bench/Lab-car with hardware setup
 
-   abcacsacascascascasc
+     Success Criteria: Verify whether the signal value is correct or not
 
 
 
