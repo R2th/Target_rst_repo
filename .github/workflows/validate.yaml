@@ -4,7 +4,7 @@ jobs:
   doctorst:
     uses: ./.github/workflows/lintrst.yaml
   validate:
-    needs: ['doctorst']
+    needs: ["doctorst"]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
