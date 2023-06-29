@@ -15,7 +15,7 @@ jobs:
           server_port: 465
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: ${{ github.event.workflow_run.name }} job of ${{ github.repository }} has ${{ github.event.workflow_run.conclusion }}
-          body: ${{ github.event.workflow_run.name }} job in worflow ${{ github.event.workflow_run.workflow }} of ${{ github.repository }} has ${{ github.event.workflow_run.conclusion }}
+          subject: "[Notification] Job \"${{ github.event.workflow_run.name }}\" in ${{ github.repository }} has ${{ github.event.workflow_run.conclusion }}"
+          body: Job ${{ github.event.workflow_run.name }} of ${{ github.repository }} has ${{ github.event.workflow_run.conclusion }}
           to: haupro186@gmail.com,minhlam2102002@gmail.com
           from: TheThree
