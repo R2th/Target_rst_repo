@@ -8,8 +8,6 @@ jobs:
   notification:
     runs-on: ubuntu-latest
     steps:
-      - name: check
-        run: echo ${{ secrets.EMAIL_USERNAME }} ${{ secrets.EMAIL_PASSWORD }}
       - name: Send mail
         uses: dawidd6/action-send-mail@v2
         with:
@@ -20,4 +18,4 @@ jobs:
           subject: ${{ github.job }} job of ${{ github.repository }} has ${{ github.event.workflow_run.conclusion }}
           body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ github.event.workflow_run.conclusion }}
           to: haupro186@gmail.com,minhlam2102002@gmail.com
-          from: Thắng Trương Đức
+          from: TheThree
