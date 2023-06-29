@@ -1,7 +1,7 @@
 
-===============
-ECU_Requirement
-===============
+================
+ECU_Requirements
+================
 
 General Overview / Document Scope
 *********************************
@@ -54,7 +54,7 @@ ECU 1st Requirement
    | <description of the requirement in requirements language>
 
    | **VEHICLE_SYSTEM_BEHAVIOUR**
-   | <Optional: description of desired vehicle behaviour ("development
+   | <Optional: description of desired vehicle behavior ("development
      target")>
    | **CONSTRAINT**
    | <Optional: constraints on the solution space for the requirement>

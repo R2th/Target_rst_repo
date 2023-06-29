@@ -1,5 +1,8 @@
 name: Validate
-on: [push, workflow_dispatch]
+on: 
+  push:
+    paths:
+      - '**.rst'
 jobs:
   doctorst:
     uses: ./.github/workflows/lintrst.yaml
