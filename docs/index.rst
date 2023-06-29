@@ -10,7 +10,6 @@ The Three
    :maxdepth: 2
    :caption: System Requirements
 
-   /src/ECU_Requirement.rst
    /src/Test_2.rst
    /src/ECU_Requirement copy 4.rst
    /src/ECU_Requirement copy 5.rst
