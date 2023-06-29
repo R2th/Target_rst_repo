@@ -3,6 +3,7 @@ import argparse
 from actions_toolkit import core
 import os
 import sys
+import re
 
 
 def find_keys(node, kv):
@@ -38,15 +39,27 @@ def find_dummy(node, key, value):
                 yield x
     elif isinstance(node, dict):
         if key in node:
-            if isinstance(node.get(key, {}), dict) and value == node.get(key, {}).get('@classes', None):
-                yield node[key]['inline']
+            if isinstance(node.get(key, {}), dict):
+                if node.get(key, {}).get('@classes', None) == value:
+                    yield node[key]['inline']
         for j in node.values():
             for x in find_dummy(j, key, value):
                 yield x
 
 
+def find_attribute_value(section, req_id, attribute):
+    node = list(find_key_value(section, '@classes', 'needs_meta'))
+    need_data = find_need_data(node, attribute)
+
+    if need_data is None:
+        return find_content_sub_directive(section, req_id, attribute)
+    else:
+        return need_data
+
+
 def find_need_data(node, attribute):
     target = list(find_dummy(node, 'inline', 'needs_' + attribute))
+
     if len(target) > 0:
         return list(find_key_value(target[0], '@classes', 'needs_data'))[0]['#text']
 
@@ -60,6 +73,25 @@ def format_message_error(path, errors):
     return message
 
 
+def extract_req_type(section):
+    classes = list(find_key_value(
+        section, '@classes', 'needs_type_'))[0]['@classes']
+    return re.findall("needs_type_\s*(.*)", classes)[-1]
+
+
+def find_content_sub_directive(section, req_id, attribute):
+    directive_by_id = list(
+        find_key_value(section, '@ids', req_id))[1]
+    sub_directive = list(find_key_value(
+        directive_by_id, '@classes', 'needs_type_' + attribute))
+    if len(sub_directive) > 0:
+        need_content = list(find_key_value(sub_directive,
+                                           '@classes', 'need content'))[0]
+        content = list(find_keys(need_content, 'paragraph'))
+
+        return content[0] if len(content) > 0 else None
+
+
 def validate(target_file, reqs_dir, xmls_dir, errors):
     file_errors = []
     source = xmltodict.parse(open(os.path.join(xmls_dir, target_file)).read())
@@ -69,34 +101,29 @@ def validate(target_file, reqs_dir, xmls_dir, errors):
 
     for section in sections:
         metadata = list(find_key_value(section, '@classes', 'needs_meta'))
+
         artifact_type = find_need_data(metadata, 'artifact_type')
+
         if artifact_type is None or artifact_type in ['Information', 'Heading']:
             continue
         else:
             attribute_errors = []
+
             req_id = list(find_keys(section, 'target'))[0]['@ids']
-            check = list(find_key_value(section, '@classes',
-                                        'needs_type_'))
-            if len(check) > 0:
-                req_type = check[0]['@classes'].split('needs_type_')[1]
+            req_type = extract_req_type(section)
+
             for attribute in ['status', 'safety_level', 'verify', 'crq']:
-                data = find_need_data(metadata, attribute)
-                if data is None:
-                    directive_by_id = list(
-                        find_key_value(section, '@ids', req_id))[1]
-                    sub_directive = list(find_key_value(
-                        directive_by_id, '@classes', 'needs_type_' + attribute))
-                    if len(sub_directive) > 0:
-                        data = list(find_key_value(sub_directive,
-                                                   '@classes', 'need content'))[1].get('paragraph')
+                value = find_attribute_value(section, req_id, attribute)
 
-                    if data is None:
-                        attribute_errors.append(attribute)
+                if value is None:
+                    attribute_errors.append(attribute)
 
-                if attribute == 'status' and data == 'Accepted':
-                    allocation = find_need_data(metadata, 'allocation')
+                if attribute == 'status' and value == 'Accepted':
+                    allocation = find_attribute_value(
+                        section, req_id, 'allocation')
                     if allocation is None:
                         attribute_errors.append('allocation')
+
             if len(attribute_errors) > 0:
                 file_errors.append((req_type, req_id, attribute_errors))
 
