@@ -12,13 +12,6 @@ The Three
 
    /src/ECU_Requirement.rst
    /src/Test_2.rst
-   19.rst
-   20.rst
-   35.rst
-   ECU_Requirement copy 2.rst
-   ECU_Requirement copy 3.rst
-   /src/ECU_Requirement copy 2.rst
-   /src/ECU_Requirement copy 3.rst
 
 Indices and tables
 ==================
