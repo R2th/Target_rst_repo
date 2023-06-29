@@ -1,19 +1,21 @@
-name: Docs
-on: [push, pull_request, workflow_dispatch]
+name: Deploy
+on:
+  workflow_run:
+    workflows: ["Validate"]
+    types:
+      - completed
 permissions:
   contents: write
 jobs:
-  docs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v3
       - name: Install dependencies
         run: |
-          pip install sphinx sphinx_rtd_theme sphinxcontrib-plantuml sphinx_needs
-      - name: Run consistency check
-        run: |
-          python validate.py -i docs/src/
+          pip install -r requirements.txt
       - name: Sphinx build
         run: |
           sphinx-build docs _build

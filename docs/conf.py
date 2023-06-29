@@ -48,4 +48,4 @@ needs_types = [
 ]
 
 needs_extra_options = ['created_by', 'url',  'date', 'time',
-                       'safety_level',  'artifact_type', 'crq', 'createdon', 'test_level']
+                       'safety_level',  'artifact_type', 'crq', 'createdon', 'test_level', 'allocation']

@@ -11,8 +11,9 @@ The Three
    :caption: System Requirements
 
    /src/ECU_Requirement.rst
-   /src/Test_1.rst
    /src/Test_2.rst
+   19.rst
+   20.rst
 
 Indices and tables
 ==================
